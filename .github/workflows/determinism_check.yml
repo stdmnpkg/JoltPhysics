@@ -444,6 +444,8 @@ jobs:
       uses: actions/checkout@v4
     - name: Update index
       run: sudo apt-get update
+    - name: Install Cross Compiler
+      run: sudo apt-get install gcc-14-aarch64-linux-gnu gcc-14-multilib g++-14-multilib libstdc++-14-dev-loong64-cross qemu-user -y
     - name: Configure CMake
       working-directory: ${{github.workspace}}/Build
       run: ./cmake_linux_clang_gcc.sh Distribution ${{env.UBUNTU_CLANG_VERSION}} -DCROSS_COMPILE_ARM=ON -DCROSS_PLATFORM_DETERMINISTIC=ON -DCROSS_COMPILE_ARM_TARGET="${{ matrix.target.target }}" -DTARGET_VIEWER=OFF -DTARGET_SAMPLES=OFF -DTARGET_HELLO_WORLD=OFF -DTARGET_UNIT_TESTS=ON -DTARGET_PERFORMANCE_TEST=ON -DCMAKE_LINKER_TYPE=LLD
